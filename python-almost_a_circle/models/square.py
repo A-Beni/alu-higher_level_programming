@@ -1,49 +1,63 @@
 #!/usr/bin/python3
-'''Module for Square class.'''
+"""
+the class square that inherits from Rectangle
+"""
+
+
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    '''A Square class.'''
-
+    """define class Square"""
     def __init__(self, size, x=0, y=0, id=None):
-        '''Constructor.'''
+        """initialization"""
         super().__init__(size, size, x, y, id)
-
-    def __str__(self):
-        '''Returns string info about this square.'''
-        return '[{}] ({}) {}/{} - {}'.\
-            format(type(self).__name__, self.id, self.x, self.y, self.width)
+        self.size = size
 
     @property
     def size(self):
-        '''Size of this square.'''
+        """Getter size"""
         return self.width
 
     @size.setter
     def size(self, value):
+        """Setter size"""
         self.width = value
         self.height = value
 
-    def __update(self, id=None, size=None, x=None, y=None):
-        '''Internal method that updates instance attributes via */**args.'''
-        if id is not None:
-            self.id = id
-        if size is not None:
-            self.size = size
-        if x is not None:
-            self.x = x
-        if y is not None:
-            self.y = y
+    def __str__(self):
+        """prints [Square] (<id>) <x>/<y> - <size>"""
+        return "[{:s}] ({:d}) {:d}/{:d} - {:d}".format(
+                self.__class__.__name__, self.id, self.x, self.y,
+                self.size)
 
     def update(self, *args, **kwargs):
-        '''Updates instance attributes via no-keyword & keyword args.'''
+        """square update"""
         if args:
-            self.__update(*args)
-        elif kwargs:
-            self.__update(**kwargs)
+            for cnt, arg in enumerate(args):
+                if cnt == 0:
+                    self.id = arg
+                elif cnt == 1:
+                    self.size = arg
+                elif cnt == 2:
+                    self.x = arg
+                else:
+                    self.y = arg
+        else:
+            if "id" in kwargs:
+                self.id = kwargs["id"]
+            if "size" in kwargs:
+                self.size = kwargs["size"]
+            if "x" in kwargs:
+                self.x = kwargs["x"]
+            if "y" in kwargs:
+                self.y = kwargs["y"]
 
     def to_dictionary(self):
-        '''Returns dictionary representation of this class.'''
-        return {"id": self.id, "size": self.width,
-                "x": self.x, "y": self.y}
+        """Square instance to dictionary representation"""
+        dic = {}
+        dic["id"] = self.id
+        dic["size"] = self.size
+        dic["x"] = self.x
+        dic["y"] = self.y
+        return dic
