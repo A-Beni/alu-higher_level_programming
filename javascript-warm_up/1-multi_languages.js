@@ -1,6 +1,5 @@
 #!/usr/bin/node
 
-// Script that prints 3 lines C is fun,Python is cool and JavaScript is amazing.
+const lines = ['JavaScript is amazing', 'Python is cool', 'C is fun'];
 
-const myVar = 'C is fun\nPython is cool\nJavaScript is amazing';
-	console.log(myVar);
+for (const line of lines.reverse()) console.log(line);
